@@ -44,4 +44,15 @@ class NeuralNetwork:
             if i > 0:
                 dZ = (dZ @ self.weights[i].T * Activation.relu_derivative(pre_activations[i - 1]))
     
+    def train(self, X: np.ndarray, Y: np.ndarray, epochs: int = 1000) -> None:
+        for epoch in range(epochs):
+            activations, pre_activations = self.forward(X)
+            self.backward(X, Y, activations, pre_activations)
+            
+            if epochs % 100 == 0:
+                loss = -np.sum(Y * np.log(activations[-1] + 1e-8)) / X.shape[0]
+                print(f"Epoch {epoch}, Loss: {loss: .4f}")
     
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        activations, _ = self.forward(X)
+        return np.argmax(activations[-1], axis = 1)
