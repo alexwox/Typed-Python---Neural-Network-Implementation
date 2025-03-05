@@ -1,6 +1,6 @@
 from typing import List, Tuple
 import numpy as np
-from Activation import Activation
+from src.Activation import Activation
 
 class NeuralNetwork:
     def __init__(self, layer_sizes: List[int], learning_rate: float = 0.01) -> None:

@@ -1,7 +1,7 @@
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
-from NeuralNetwork import NeuralNetwork
+from src.NeuralNetwork import NeuralNetwork
 import numpy as np
 
 def main():
