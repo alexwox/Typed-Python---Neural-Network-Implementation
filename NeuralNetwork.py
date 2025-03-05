@@ -29,3 +29,19 @@ class NeuralNetwork:
         activations.append(A)
         
         return activations, pre_activations
+    
+    def backward(self, X: np.ndarray, Y: np.ndarray, activations: List[np.ndarray], pre_activations: List[np.ndarray]) -> None:
+        batch_size = X.shape[0]
+        L = len(self.weights)
+        
+        dZ = activations[-1] - Y
+        for i in reversed(range(L)):
+            dW = activations[i].T @ dZ / batch_size
+            db = np.sum(dZ, axis=0, keepdims=True) / batch_size
+            self.weights[i] -= self.learning_rate * dW
+            self.biases[i] -= self.learning_rate * db
+            
+            if i > 0:
+                dZ = (dZ @ self.weights[i].T * Activation.relu_derivative(pre_activations[i - 1]))
+    
+    
